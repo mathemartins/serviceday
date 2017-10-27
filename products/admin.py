@@ -1,9 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import (
-	Product, 
+from products.models import (
+	Product,
+	MyProducts, 
+	Thumbnail, 
+	ProductRating,
+	CuratedProducts
 )
+
+class ThumbnailInline(admin.TabularInline):
+	extra = 1
+	model = Thumbnail
+
 
 class ProductAdmin(admin.ModelAdmin):
 	list_display = ["__str__", "description", "price", "sale_price"]
@@ -15,3 +24,11 @@ class ProductAdmin(admin.ModelAdmin):
 		model = Product
 
 admin.site.register(Product, ProductAdmin)
+
+admin.site.register(MyProducts)
+
+admin.site.register(Thumbnail)
+
+admin.site.register(ProductRating)
+
+admin.site.register(CuratedProducts)

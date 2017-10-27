@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # custom app
+    'analytics',
+    'billing',
     'products',
     'sellers',
+    'search',
+    'tags',
 
     # third-party-app-modules
     'storages',
