@@ -64,7 +64,7 @@ ROOT_URLCONF = 'dev.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,3 +130,15 @@ from dev.aws.conf import *
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+#TEAM MANAGERS
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+#TEAM DOESN'T
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "staticfiles")
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media")
+
+PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protected")

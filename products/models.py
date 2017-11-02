@@ -93,7 +93,7 @@ class Thumbnail(models.Model):
 		null=True, 
 		upload_to=thumbnail_location)
 
-	def __unicode__(self): # __str__(self):
+	def __str__(self): # __str__(self):
 		return str(self.media.path)
 
 
@@ -159,7 +159,7 @@ class MyProducts(models.Model):
 	products = models.ManyToManyField(Product, blank=True)
 
 
-	def __unicode__(self):
+	def __str__(self):
 		return "%s" %(self.products.count())
 
 	class Meta:
@@ -174,7 +174,7 @@ class ProductRating(models.Model):
 	rating = models.IntegerField(null=True, blank=True)
 	verified = models.BooleanField(default=False)
 
-	def __unicode__(self):
+	def __str__(self):
 		return "%s" %(self.rating)
 
 
@@ -185,9 +185,8 @@ class CuratedProducts(models.Model):
 	products = models.ManyToManyField(Product, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.section_name
-
 
 
 class Request(models.Model):

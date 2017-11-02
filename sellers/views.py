@@ -11,7 +11,7 @@ from dev.mixins import LoginRequiredMixin
 from products.models import Product
 
 from sellers.forms import NewSellerForm
-from sellers.mixins import SellerAccountMixin
+from sellers.mixins import SellerAccountMixin, ArtisanAccountMixin
 from sellers.models import SellerAccount
 
 
@@ -73,4 +73,5 @@ class SellerDashboard(SellerAccountMixin, FormMixin, View):
 		obj = SellerAccount.objects.create(user=self.request.user)
 		return valid_data
 
+		
 		

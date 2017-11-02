@@ -1,0 +1,65 @@
+<!--A Design popularge
+	Author: mathemartins
+	Author URL: http://mathemartins.com
+-->
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>ServizeDey | Home</title>
+<link href="{% static 'staticfiles/client/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Custom Theme files -->
+<link href="{% static 'staticfiles/client/css/style.css' %}" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--webfont-->
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="{% static 'staticfiles/client/js/jquery-1.11.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'staticfiles/client/js/login.js' %}"></script>
+<script src="{% static 'staticfiles/client/js/jquery.easydropdown.js' %}"></script>
+<!--Animation-->
+<script src="{% static 'staticfiles/client/js/wow.min.js' %}"></script>
+<link href="{% static 'staticfiles/client/css/animate.css' %}" rel='stylesheet' type='text/css' />
+<script>
+	new WOW().init();
+</script>
+</head>
+<body>
+
+	{% include 'site-utils/nav/navbar.html' %}
+
+	{% block banner %}
+
+	{% endblock banner %}
+
+	{% block breadcrumb %}
+
+	{% endblock breadcrumb %}
+
+	{% block content %}
+
+
+		{% block offercontent %}
+			
+		{% endblock offercontent %}
+
+	{% endblock content %}
+
+	<!-- footer starts -->
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src='{% static "staticfiles/client/js/django.csrf.js" %}'></script>
+
+	{% include 'site-utils/footer/footer.html' %}
+
+	<script>
+	$(document).ready(function(){
+		{% block jquery %}
+
+		{% endblock jquery %}
+	})
+	</script>
+</body>
+</html>

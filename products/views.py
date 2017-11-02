@@ -21,13 +21,13 @@ from dev.mixins import (
 			AjaxRequiredMixin
 		)
 
-from tags.models import Tag
+from tags.models import Tag, ArtisanTag
 
 from products.forms import ProductAddForm, ProductModelForm
 from products.mixins import ProductManagerMixin
 from products.models import Product, Request, ProductRating, MyProducts
 
-from sellers.models import SellerAccount, ArtisanAccount
+from sellers.models import SellerAccount, ArtisanAccount, ArtisanCategory
 from sellers.mixins import SellerAccountMixin, ArtisanAccountMixin
 
 class ProductRatingAjaxView(AjaxRequiredMixin, View):
@@ -178,7 +178,7 @@ class ProductDownloadView(MultiSlugMixin, DetailView):
 
 
 
-class SellerProductListView(SellerAccountMixin, ListView):
+class SellerProductListView(MultiSlugMixin, ListView):
 	model = Product
 	template_name = "sellers/product_list_view.html"
 
@@ -193,13 +193,27 @@ class SellerProductListView(SellerAccountMixin, ListView):
 				).order_by("title")
 		return qs
 
-class ArtisanListView(ArtisanAccountMixin, ListView):
+class ArtisanRequestListView(MultiSlugMixin, ListView):
+	model = Request
+	template_name = "sellers/artisan_request_list_view.html"
+
+	def get_queryset(self, *args, **kwargs):
+		qs = super(ArtisanRequestListView, self).get_queryset(**kwargs)
+		qs = qs.filter(artisan=self.get_account())
+		query = self.request.GET.get("q")
+		if query:
+			qs = qs.filter(
+					Q(artisan__icontains=query)|
+					Q(user__icontains=query)
+				).order_by("artisan")
+		return qs
+
+class ArtisanListView(ListView):
 	model = ArtisanAccount
 	template_name = "sellers/artisan_list_view.html"
 
 	def get_queryset(self, *args, **kwargs):
 		qs =  super(ArtisanListView, self).get_queryset(**kwargs)
-		qs = qs.filter(artisan=self.get_account())
 		query = self.request.GET.get("q")
 		if query:
 			qs = qs.filter(
@@ -208,6 +222,35 @@ class ArtisanListView(ArtisanAccountMixin, ListView):
 				).order_by("title")
 		return qs
 
+class ArtisanDetailView(MultiSlugMixin, DetailView):
+	model = ArtisanAccount
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(ArtisanDetailView, self).get_context_data(*args, **kwargs)
+		obj = self.get_object()
+		artisan_tags = obj.artisantag_set.all()
+		if self.request.user.is_authenticated():
+			for tag in artisan_tags:
+				new_view = TagView.objects.add_count(self.request.user, tag)
+		return context
+
+
+class ArtisanCategoryListView(ListView):
+	model = ArtisanCategory
+	template_name = "sellers/artisan_category_list_view.html"
+
+	def get_queryset(self, *args, **kwargs):
+		qs = super(ArtisanCategoryListView, self).get_queryset(**kwargs)
+		return qs
+
+
+class ArtisanCategoryDetailView(MultiSlugMixin, DetailView):
+	model = ArtisanCategory
+
+	def get_context_data(self, *args, **kwargs):
+	    context = super(ArtisanCategoryDetailView, self).get_context_data(*args, **kwargs)
+	    obj = self.get_object()
+	    return context
 
 
 class VendorListView(ListView):
