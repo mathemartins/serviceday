@@ -34,3 +34,6 @@ urlpatterns = [
     url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),
 ]
 
+urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    
