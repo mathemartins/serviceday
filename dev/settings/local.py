@@ -168,19 +168,14 @@ WSGI_APPLICATION = 'dev.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'd3ab27op2ams3b',
-        'USER': 'npursexeldtaez',
-        'HOST': 'ec2-107-21-224-61.compute-1.amazonaws.com',
-        'PASSWORD': 'b1c8762306d7f1f65f58d97c333c5e592bad1c08a340a1f651fd513314ed6583',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
 import dj_database_url
 db_from_env = dj_database_url.config()
-DATABASES['default']['ENGINE'] = "django.contrib.gis.db.backends.postgis"
-
+DATABASES['default'].update(db_from_env)
 
 CORS_REPLACE_HTTPS_REFERER       = True
 HOST_SCHEME                      = "https://"
