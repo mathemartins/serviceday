@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = '*gjsv)j9b2swuy@bmlf&a99pj5iretjat%ogrz9v(!@+e2#lm1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'hellotrackamechanic@gmail.com'
@@ -188,8 +188,8 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS   = True
 SECURE_HSTS_SECONDS              = 1000000
 SECURE_FRAME_DENY                = True
 
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
 
