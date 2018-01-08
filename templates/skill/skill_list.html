@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+{% block style %}
+
+{% endblock style %}
+
+{% block title %}
+	professions | servizedey
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+	<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
+		<br/>
+		<h3 class="title">{% if vendor_name %}{{ vendor_name }} {% endif %}<span> professional artisans </span></h3>
+	</div>
+	<div class="col-sm-8 col-sm-offset-2">
+
+			{% include "skill/skill_list_snippet.html" with skill_list=object_list %}
+
+	</div>
+</div>
+
+
+{% endblock %}

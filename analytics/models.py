@@ -3,7 +3,8 @@ from django.db import models
 
 # Create your models here.
 
-from tags.models import Tag
+from tag.models import Tag
+
 
 class TagViewManager(models.Manager):
 	def add_count(self, user, tag):
@@ -13,6 +14,7 @@ class TagViewManager(models.Manager):
 		obj.save()
 		return obj
 
+
 class TagView(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
 	tag = models.ForeignKey(Tag)
@@ -20,6 +22,5 @@ class TagView(models.Model):
 
 	objects = TagViewManager()
 
-	def __unicode__(self):
+	def __str__(self):
 		return str(self.tag.title)
-		

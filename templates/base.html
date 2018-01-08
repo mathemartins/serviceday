@@ -3,29 +3,61 @@
 	Author URL: http://mathemartins.com
 -->
 {% load staticfiles %}
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-<title>ServizeDey | Home</title>
-<link href="{% static 'staticfiles/client/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!-- Custom Theme files -->
-<link href="{% static 'staticfiles/client/css/style.css' %}" rel='stylesheet' type='text/css' />
-<!-- Custom Theme files -->
+<title>{% block title %} | ServizeDey {% endblock %}</title>
+<!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!--webfont-->
-<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="{% static 'staticfiles/client/js/jquery-1.11.1.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'staticfiles/client/js/login.js' %}"></script>
-<script src="{% static 'staticfiles/client/js/jquery.easydropdown.js' %}"></script>
-<!--Animation-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Modern Shoppe Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--//for-mobile-apps -->
+<!--Custom Theme files -->
+<link href="{% static 'staticfiles/client/css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'staticfiles/client/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="{% static 'staticfiles/client/css/flexslider.css' %}" type="text/css" media="screen" />
+<!--//Custom Theme files -->
+<!--js-->
+<script src="{% static 'staticfiles/client/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'staticfiles/client/js/modernizr.custom.js' %}"></script>
+<!--//js-->
+<!--cart-->
+<script src="{% static 'staticfiles/client/js/simpleCart.min.js' %}"></script>
+<!--cart-->
+<!--web-fonts-->
+<link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
+<!--web-fonts-->
+<!--animation-effect-->
+<link href="{% static 'staticfiles/client/css/animate.min.css' %}" rel="stylesheet"> 
 <script src="{% static 'staticfiles/client/js/wow.min.js' %}"></script>
-<link href="{% static 'staticfiles/client/css/animate.css' %}" rel='stylesheet' type='text/css' />
-<script>
-	new WOW().init();
+
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+	<script>
+	 new WOW().init();
+	</script>
+<!--//animation-effect-->
+<!--start-smooth-scrolling-->
+<script type="text/javascript" src="{% static 'staticfiles/client/js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'staticfiles/client/js/easing.js' %}"></script>	
+<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){		
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			});
+		});
 </script>
+<!--//end-smooth-scrolling-->
+<style type="text/css">
+	{% block style %} {% endblock style %}
+</style>
 </head>
+<!DOCTYPE HTML>
 <body>
 
 	{% include 'site-utils/nav/navbar.html' %}
@@ -53,6 +85,30 @@
 	<script src='{% static "staticfiles/client/js/django.csrf.js" %}'></script>
 
 	{% include 'site-utils/footer/footer.html' %}
+
+	<!--search jQuery-->
+	<script src="{% static 'staticfiles/client/js/main.js' %}"></script>
+	<!--//search jQuery-->
+	<!--smooth-scrolling-of-move-up-->
+	<script type="text/javascript">
+		$(document).ready(function() {
+		
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			
+			$().UItoTop({ easingType: 'easeOutQuart' });
+			
+		});
+	</script>
+	<!--//smooth-scrolling-of-move-up-->
+	<!--Bootstrap core JavaScript
+    ================================================== -->
+    <!--Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'staticfiles/client/js/bootstrap.js' %}"></script>
 
 	<script>
 	$(document).ready(function(){

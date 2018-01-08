@@ -1,0 +1,32 @@
+
+{% for instance in skill_list %}
+    <div class="product-grids simpleCart_shelfItem wow fadeInUp animated" data-wow-delay=".5s">
+        <div class="new-top">
+            {% if instance.image %}
+                <a href="{{ instance.get_absolute_url }}"><img src="{{ instance.image.url }}" class="img-responsive" alt=""/></a>
+            {% endif %}
+            <div class="new-text">
+                <ul>
+                    <li><a href="{{ instance.get_absolute_url }}">view {{ instance.title }} </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="new-bottom">
+            <h5><a class="name" href='{{ instance.get_absolute_url }}'> {{ instance.title }} </a></h5>
+            <hr/>
+            <div class="text-default"> {{ instance.description }} </div>
+            <div class="ofr">
+                <p><span class="item_price">#{{ instance.get_html_price|safe }}</span></p>
+            </div>
+        </div>
+    </div>
+    {% cycle '' '' '<div class=\'col-sm-12\'><hr></div>' %}
+    {% if forloop.counter|divisibleby:12 %}
+    </div>
+    {% endif %}
+{% empty %}
+    <div class="container">
+        <h3 class="text-primary"> No profession yet. </h3>
+        <br/>
+    </div>
+{% endfor %}

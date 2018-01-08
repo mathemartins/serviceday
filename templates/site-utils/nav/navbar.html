@@ -1,64 +1,290 @@
 {% load staticfiles %}
 
-<div class="header">
-   <div class="col-sm-8 header-left">
-		<div class="logo">
-			<a href="/"><img src="images/logo.png" alt=""/></a>
+<!--header-->
+	<div class="header">
+		<div class="top-header navbar navbar-default"><!--header-one-->
+			<div class="container">
+				{% if request.user.is_authenticated %}
+				<div class="nav navbar-nav wow fadeInLeft animated" data-wow-delay=".5s">
+					<p>Welcome to ServizeDey <a href="{% url 'artisan:dashboard' %}">{{ request.user }} </a> | <a href="{% url 'account_logout' %}"> Logout </a>
+				</div>
+				{% else %}
+				<div class="nav navbar-nav wow fadeInLeft animated" data-wow-delay=".5s">
+					<p>Welcome to ServizeDey <a href="{% url 'account_signup' %}">Register </a> Or <a href="{% url 'account_login' %}">Sign In </a></p>
+				</div>
+				{% endif %}
+				<div class="nav navbar-nav navbar-right social-icons wow fadeInRight animated" data-wow-delay=".5s">
+					<ul>
+						<li><a href="#"> </a></li>
+						<li><a href="#" class="pin"> </a></li>
+						<li><a href="#" class="in"> </a></li>
+						<li><a href="#" class="be"> </a></li>
+						<li><a href="#" class="you"> </a></li>
+						<li><a href="#" class="vimeo"> </a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
 		</div>
-		<div class="menu">
-			<a class="toggleMenu" href="#"><img src="{% static 'staticfiles/client/images/nav.png' %}" alt="" /></a>
-			<ul class="nav" id="nav">
-            <li class="active"><a href="index.html">Reality</a></li>
-		    	<li><a href="living.html">Living</a></li>
-		    	<li><a href="education.html">Education</a></li>
-		    	<li><a href="entertain.html">Entertainment</a></li>
-		    	<li><a href="404.html">Mobility</a></li>
+		<div class="header-two navbar navbar-default"><!--header-two-->
+			<div class="container">
+				<div class="nav navbar-nav header-two-left">
+					<ul>
+						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+234 905 936 4173</li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:servizedey.info@gmail.com">servizedey.info@gmail.com</a></li>			
+					</ul>
+				</div>
+				<div class="nav navbar-nav logo wow zoomIn animated" data-wow-delay=".7s">
+					<h1><a href="/">Servize<b>Dey</b><span class="tag">Every Artisan You Need, In One Place.. </span> </a></h1>
+				</div>
+				<div class="nav navbar-nav navbar-right header-two-right">
+					<div class="header-right my-account">
+						<a href="contact.html"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> CONTACT US</a>						
+					</div>
+					<div class="header-right cart">
+						<a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+						<h4><a href="tel:+234 905 936 4173">
+								<span class="simpleCart_total"> Customer Support </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>) 
+						</a></h4>
+						<div class="cart-box">
+							<p><a href="javascript:;" class="simpleCart_empty">Contact Support</a></p>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="top-nav navbar navbar-default"><!--header-three-->
+			<div class="container">
+				<nav class="navbar" role="navigation">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<!--navbar-header-->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav top-nav-info">
+							<li><a href="/" class="active">Home</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Repairs<b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column multi-column1">
+									<div class="row">
+										<div class="col-sm-4 menu-grids menulist1">
+											<h4>Engineering & Repairs</h4>
+											<ul class="multi-column-dropdown ">
+												<li><a class="list" href="products.html">Diapering</a></li>
+												<li><a class="list" href="products.html">Baby Wipes</a></li>
+												<li><a class="list" href="products.html">Baby Soaps</a></li>
+												<li><a class="list" href="products.html">Lotions & Oils </a></li>
+												<li><a class="list" href="products.html">Powders</a></li>
+												<li><a class="list" href="products.html">Shampoos</a></li>
+											</ul>
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Body Wash</a></li>
+												<li><a class="list" href="products.html">Cloth Diapers</a></li>
+												<li><a class="list" href="products.html">Baby Nappies</a></li>
+												<li><a class="list" href="products.html">Medical Care</a></li>
+												<li><a class="list" href="products.html">Grooming</a></li>
+												<li><h6><a class="list" href="{% url 'skill:list' %}">All Repairs</a></h6></li>
+											</ul>
+										</div>																		
+										<div class="col-sm-2 menu-grids">
+											<h4>Fixings </h4>
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Onesies & Rompers</a></li>
+												<li><a class="list" href="products.html">Frocks</a></li>
+												<li><a class="list" href="products.html">Socks & Tights</a></li>
+												<li><a class="list" href="products.html">Sweaters & Caps</a></li>
+												<li><a class="list" href="products.html">Night Wear</a></li>
+												<li><a class="list" href="products.html">Quilts & Wraps</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-3 menu-grids">
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Blankets</a></li>
+												<li><a class="list" href="products.html">Gloves & Mittens</a></li>
+												<h4>Maintenance</h4>
+												<li><a class="list" href="products.html">New Born (0 - 5 M)</a></li>
+												<li><a class="list" href="products.html">5 - 10 Months</a></li>
+												<li><a class="list" href="products.html">10 - 15 Months</a></li>
+												<li><a class="list" href="products.html">15 Months Above</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-3 menu-grids">
+											<ul class="multi-column-dropdown">
+												<li><h6><a class="list" href="{% url 'skill:list' %}">search by skill</a></h6></li>
+												<h4>Toolings</h4>
+												<li><a class="list" href="products.html">Baby Walkers</a></li>
+												<li><a class="list" href="products.html">Strollers</a></li>
+												<li><a class="list" href="products.html">Prams & Toys</a></li>
+												<li><a class="list" href="products.html">Cribs & Cradles</a></li>
+												<li><a class="list" href="products.html">Booster Seats</a></li>
+											</ul>
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</ul>
+							</li>
+							<li class="dropdown grid">
+								<a href="#" class="dropdown-toggle list1" data-toggle="dropdown">Fashion & Style<b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column multi-column2">
+									<div class="row">
+										<div class="col-sm-3 menu-grids">
+											<h4>Clothings</h4>
+											<ul class="multi-column-dropdown">
+												{% for instance in object_list %}
+													<li><a class="list" href="{{ instance.get_absolute_url }}">{{ instance.title }}</a></li>
+												{% empty %}
+													<div class="col-md-6 col-md-offset-3">
+												    	<h3 class="text-center">Empty Category</h3>
+												    </div>
+												{% endfor %}
+												<!-- <li><a class="list" href="products.html">Bottomwear</a></li>
+												<li><a class="list" href="products.html">Innerwear</a></li>
+												<li><a class="list" href="products.html">Nightwear</a></li>
+												<li><a class="list" href="products.html">Swimwear</a></li>
+												<li><a class="list" href="products.html">Jumpers</a></li> -->
+											</ul>
+										</div>																		
+										<div class="col-sm-3 menu-grids">
+											<h4>Accesories</h4>
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Jeans</a></li>
+												<li><a class="list" href="products.html">Shirts</a></li>
+												<li><a class="list" href="products.html">T-shirts</a></li>
+												<li><a class="list" href="products.html">Dhoti Kurta Sets</a></li>
+												<li><a class="list" href="products.html">Winter wear</a></li>
+												<li><a class="list" href="products.html">Party Wear</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-3 menu-grids">
+											<h4>Wears and Designs</h4>
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Tops</a></li>
+												<li><a class="list" href="products.html">Leggings</a></li>
+												<li><a class="list" href="products.html">Dresses </a></li>
+												<li><a class="list" href="products.html">Skirts</a></li>
+												<li><a class="list" href="products.html">Casual Dresses</a></li>
+												<li><a class="list" href="products.html">Capris & 3/4ths</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-3 menu-grids new-add2">
+											<a href="products.html">
+												<h6> <a href="{% url 'skill:list' %}"> shop all skill</a> </h6>
+												<img src="{% static 'staticfiles/client/images/img1.jpg' %}" alt="" class="img-responsive">
+											</a>
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</ul>
+							</li>
+							<li class="dropdown grid">
+								<a href="#" class="dropdown-toggle list1" data-toggle="dropdown">Entertainment<b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column menu-two multi-column3">
+									<div class="row">
+										<div class="col-sm-4 menu-grids">
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Jewellery</a></li>
+												<li><a class="list" href="products.html">Hair bands & Clips</a></li>
+												<li><a class="list" href="products.html">Bangles </a></li>
+												<li><a class="list" href="products.html">Caps & Belts</a></li>
+												<li><a class="list" href="products.html">Rain wear</a></li>
+												<li><a class="list" href="products.html">Bags</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-8 menu-grids">
+											<a href="{% url 'skill:list' %}">
+												<div class="new-add">
+													<h5>Get Skilled <br> Artisans Today</h5>
+												</div>	
+											</a>
+										</div>	
+										<div class="clearfix"> </div>
+									</div>	
+								</ul>
+							</li>				
+							<li class="dropdown grid">
+								<a href="#" class="dropdown-toggle list1" data-toggle="dropdown">More <b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column multi-column4">
+									<div class="row">
+										<div class="col-sm-4 menu-grids menulist1">
+											<h4>Home & Office</h4>
+											<ul class="multi-column-dropdown ">
+												<li><a class="list" href="products.html">Rockers</a></li>
+												<li><a class="list" href="products.html">Rattles</a></li>
+												<li><a class="list" href="products.html">Stroller Toys</a></li>
+												<li><a class="list" href="products.html">Musical Toys </a></li>
+												<li><a class="list" href="products.html">Doll Houses</a></li>
+												<li><a class="list" href="products.html">Play Sets</a></li>
+											</ul>
+											<h4>Education & Teachings</h4>
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Toys Dolls</a></li>
+												<li><a class="list" href="products.html">Pacifiers</a></li>
+												<li><a class="list" href="products.html">Building Sets</a></li>
+												<li><a class="list" href="products.html">Bath Toys</a></li>
+												<li><a class="list" href="products.html">Soft Toys</a></li>
+												<li><h6><a class="list" href="{% url 'skill:list' %}">Special Off</a></h6></li>
+											</ul>
+										</div>																		
+										<div class="col-sm-2 menu-grids">
+											<h4>Event Occasions</h4>
+											<ul class="multi-column-dropdown">
+												<li><h6><a class="list" href="{% url 'skill:list' %}">All Artisans</a></h6></li>
+												<li><a class="list" href="products.html">Kitchen Sets</a></li>
+												<li><a class="list" href="products.html">Sand Toys</a></li>
+												<li><a class="list" href="products.html">Tool Sets</a></li>
+												<li><a class="list" href="products.html">Bath Toys</a></li>
+												<li><a class="list" href="products.html">Medical Set</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-2 menu-grids">
+											<h4>Health & Wellness</h4>
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="products.html">Swimming</a></li>
+												<li><a class="list" href="products.html">Rideons </a></li>
+												<li><a class="list" href="products.html">Scooters</a></li>
+												<li><a class="list" href="products.html">Remote Control</a></li>
+												<li><a class="list" href="products.html">Animals</a></li>
+												<li><a class="list" href="products.html">Make up</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-4 menu-grids">
+											<a href="{% url 'skill:list' %}">
+												<div class="new-add">
+													<h5>Get Skilled <br>Artisans Today</h5>
+												</div>
+											</a>	
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</ul>
+							</li>
+							<li><a href="{% url 'skill:list' %}">Artisans</a></li>
+						</ul> 
+						<div class="clearfix"> </div>
+						<!--//navbar-collapse-->
+						<header class="cd-main-header">
+							<ul class="cd-header-buttons">
+								<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+							</ul> <!-- cd-header-buttons -->
+						</header>
+					</div>
+					<!--//navbar-header-->
+				</nav>
+				<div id="cd-search" class="cd-search">
+					<form>
+						<input type='text' name='q' placeholder='Search' value='{{ request.GET.q }}' class="form-control">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--//header-->
 
-            <div class="clearfix"></div>
-			</ul>
-         <script type="text/javascript" src="{% static 'staticfiles/client/js/responsive-nav.js' %}"></script>
-      </div>
-      <!-- start search-->
-		<div class="search-box">
-			<div id="sb-search" class="sb-search">
-				<form>
-					<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
-					<input class="sb-search-submit" type="submit" value="">
-					<span class="sb-icon-search"> </span>
-				</form>
-			</div>
-		</div>
-		<!-- search-scripts -->
-		<script src="{% static 'staticfiles/client/js/classie.js' %}"></script>
-		<script src="{% static 'staticfiles/client/js/uisearch.js' %}"></script>
-		<script>
-			new UISearch( document.getElementById( 'sb-search' ) );
-		</script>
-		<!--//search-scripts-->						
- 		<div class="clearfix"></div>
- 	</div>
-	<div class="col-sm-4 header_right">
-	    <div id="loginContainer">
-         <a href="#" id="loginButton"><img src="{% static 'staticfiles/client/images/login.png' %}"><span>Login</span></a>
-			<div id="loginBox">                
-				<form id="loginForm">
-					<fieldset id="body">
-						<fieldset>
-						   <label for="email">Email Address</label>
-						   <input type="text" name="email" id="email">
-						</fieldset>
-						<fieldset>
-						   <label for="password">Password</label>
-						   <input type="password" name="password" id="password">
-						</fieldset>
-						<input type="submit" id="login" value="Sign in">
-						<label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
-					</fieldset>
-					<span><a href="#">Forgot your password?</a></span>
-				</form>
-			</div>
-		</div>
-      <div class="clearfix"></div>
-   </div>
-   <div class="clearfix"></div>
-</div>

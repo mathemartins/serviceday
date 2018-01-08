@@ -1,5 +1,6 @@
 from django.http import Http404
 
+
 def ajax_required(function):
 	"""
 	This is a doc string

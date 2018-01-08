@@ -18,20 +18,19 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-# from checkout.views import CheckoutTestView, CheckoutAjaxView
-from dashboard.views import DashboardView, HomepageView
-from products.views import UserLibraryListView
+from dashboard.views import DashboardView
+from skill.views import UserLibraryListView
 
 urlpatterns = [
-    url(r'^$', HomepageView.as_view(), name='homepage'),
-    url(r'^dashboard/$', DashboardView.as_view(), name='dashboard'),
+    url(r'^$', DashboardView.as_view(), name='dashboard'),
     url(r'^admin/', admin.site.urls),
-    url(r'^products/', include("products.urls", namespace='products')),
-    url(r'^seller/', include("sellers.urls", namespace='sellers')),
-    url(r'^tags/', include("tags.urls", namespace='tags')),
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^artisan/', include("artisan.urls", namespace='artisan')),
+    url(r'^skill/', include("skill.urls", namespace='skill')),
+    url(r'^tags/', include("tag.urls", namespace='tag')),
+    url(r'^category/', include("core.urls", namespace='cat')),
     url(r'^library/', UserLibraryListView.as_view(), name='library'),
+    url(r'^comments/', include('django_comments_xtd.urls')),
+    url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

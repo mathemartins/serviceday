@@ -24,30 +24,59 @@ SECRET_KEY = '*gjsv)j9b2swuy@bmlf&a99pj5iretjat%ogrz9v(!@+e2#lm1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hellotrackamechanic@gmail.com'
+EMAIL_MAIN = 'hellotrackamechanic@gmail.com'
+EMAIL_HOST_PASSWORD = 'K1ngL1verp00l'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = "Team TRACKAMECHANIC <hello@trackamechanic.com>"
+
+ADMINS = [('Team TRACKAMECHANIC', EMAIL_HOST_USER)]
+MANAGERS = ADMINS
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'imagekit',
 
     # custom app
-    'analytics',
-    'billing',
-    'products',
-    'sellers',
-    'search',
-    'tags',
+    "artisan",
+    "core",
+    "skill",
+    "tag",
+    "analytics",
+    "dashboard",
 
     # third-party-app-modules
     'storages',
+    'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'django_comments_xtd',
+    'django_comments',
+    'star_ratings',
+
+    # socialmedia auth
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.instagram',
+    'allauth.socialaccount.providers.twitter',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,6 +89,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'dev.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 TEMPLATES = [
     {
@@ -77,6 +108,58 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 2
+COMMENTS_XTD_CONFIRM_EMAIL = True
+#  To help obfuscating comments before they are sent for confirmation.
+COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
+                     b"Aequam memento rebus in arduis servare mentem.")
+# Source mail address used for notifications.
+COMMENTS_XTD_FROM_EMAIL = "hellotrackamechanic@gmail.com"
+# Contact mail address to show in messages.
+COMMENTS_XTD_CONTACT_EMAIL = "hellotrackamechanic@gmail.com"
+COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_SESSION_REMEMBER = "Remember me?"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'settings', 'news', 'about', 'help',
+                           'signin', 'signup', 'signout', 'terms', 'privacy',
+                           'cookie', 'new', 'login', 'logout', 'administrator',
+                           'join', 'account', 'username', 'root', 'blog',
+                           'user', 'users', 'billing', 'subscribe', 'reviews',
+                           'review', 'blog', 'blogs', 'edit', 'mail', 'email',
+                           'home', 'job', 'jobs', 'contribute', 'newsletter',
+                           'shop', 'profile', 'register', 'auth',
+                           'authentication', 'campaign', 'config', 'delete',
+                           'remove', 'forum', 'forums', 'download',
+                           'downloads', 'contact', 'blogs', 'feed', 'feeds',
+                           'faq', 'intranet', 'log', 'registration', 'search',
+                           'explore', 'rss', 'support', 'status', 'static',
+                           'media', 'setting', 'css', 'js', 'follow',
+                           'activity', 'questions', 'articles', 'network', 'mathemartins',
+                           'bae','boo','fuck','pussy','dick','shit','sheet','pussyNigga','pussynigga',
+                           'prick','virgina','camelToe','bitch', 'trackamechanic',
+                           ]
+
 WSGI_APPLICATION = 'dev.wsgi.application'
 
 
@@ -89,6 +172,10 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 
 
 # Password validation
@@ -137,8 +224,6 @@ STATICFILES_DIRS = (
 )
 
 #TEAM DOESN'T
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn", "staticfiles")
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media")
-
-PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protected")
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+<h1 class="">My Artisan Professions</h1>
+<p>
+<form method="GET" action="">
+<input type='text' name='q' placeholder='Search' value='{{ request.GET.q }}'>
+<input type='submit' value='Search'/>
+</form>
+</p>
+<table>
+
+	{% for instance in skill_list %}
+    <tr class="">
+    	<td>
+    		{{ instance.id }}
+    	</td>
+    	<td>
+    		<a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a>
+    	</td>
+    	<td>
+    	{% if instance|get_thumbnail:"micro" %}
+    	<a href='{{ instance.get_absolute_url }}'>
+
+    		<!-- <img src='{{ instance|get_thumbnail:"micro" }}' style='max-width:100px'/></a><br/> -->
+    	{% endif %}
+    	</td>
+    	<td>{{ instance.price }}
+    	</td>
+    	<td><a href='{{ instance.get_edit_url }}'>Edit</a> | <a href="#">Delete</a>
+    	</td>
+   </li>
+{% empty %}
+    <li>No Professions Yet.</li>
+{% endfor %}
+
+</table>
+
+
+{% endblock %}

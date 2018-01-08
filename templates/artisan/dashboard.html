@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %} Dashboard | ServizeDey {% endblock %}
+
+{% block content %}
+
+<!--new-->
+	<div class="new">
+		<div class="container">
+			<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
+				<h3 class="title">{{ title }} <span> @ ServizeDey</span></h3>
+				<p>An overview rules for our Marketplace</p>
+			</div>
+				<div class="clearfix"> </div>
+				{% if apply_form %}
+					<div class="col-sm-4 col-sm-offset-4">
+						
+							<form method='POST' action=''> {% csrf_token %}
+								<br/>
+								{{ apply_form.as_p }} 
+								<br/>
+								<input type='submit' class="btn btn-success btn-block" />
+							</form>
+							<br/>
+						
+					</div>
+
+					<div class="clearfix"> </div>
+
+						<div class="well well-sm text-center">
+							<strong class="text-center">
+								Store Verification Would Take Atleast 24Hrs To Complete
+							</strong>
+						</div>
+				{% endif %}
+
+			</div>
+		</div>
+	</div>		
+<!--//new-->
+
+{% if skills %}
+
+	<!--banner-->
+	<div class="banner">
+		<div class="container">
+			<div class="banner-text">			
+				<div class="col-sm-5 banner-left wow fadeInLeft animated" data-wow-delay=".5s">			
+					<h2>{{ request.user }}</h2>
+					<h3>Artisan </h3>
+				</div>
+				<div class="col-sm-7 banner-right wow fadeInRight animated" data-wow-delay=".5s">			
+					<section class="slider grid">
+						<div class="flexslider">
+							<ul class="slides">
+								<li>
+									<h4>-30%</h4>
+									<img src="images/b1.png" alt="">
+								</li>
+								<li>
+									<h4>-25%</h4>
+									<img src="images/b2.png" alt="">
+								</li>
+								<li>
+									<h4>-32%</h4>
+									<img src="images/b3.png" alt="">
+								</li>
+							</ul>
+						</div>
+					</section>
+					<!--FlexSlider-->
+					<script defer src="js/jquery.flexslider.js"></script>
+					<script type="text/javascript">
+						$(window).load(function(){
+						  $('.flexslider').flexslider({
+							animation: "pagination",
+							start: function(slider){
+							  $('body').removeClass('loading');
+							}
+						  });
+						});
+					</script>
+					<!--End-slider-script-->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>			
+	<!--//banner-->
+
+	<!--products-->
+	<div class="products">	 
+		<div class="container">
+			<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
+				<h3 class="title">professions by<span> - {{request.user}}</span></h3>
+			</div>
+			<div class="col-md-9 product-model-sec">
+				{% include "skill/skill_list_snippet.html" with skill_list=skills %}
+			</div>
+			<div class="col-md-3 rsidebar">
+				<div class="rsidebar-top">
+					<div class="slider-left">
+						<h4>Dashboard Overview</h4>            
+					</div>
+					<div class="sidebar-row">
+						<h4>Tools</h4>
+						<div class="row row1 scroll-pane">
+							<a href='{% url "artisan:artisan_create" %}' class="btn btn-block btn-primary">Add</a>
+							<a href='{% url "artisan:artisan_list" %}' class="btn btn-block btn-primary">View All</a>
+						</div>
+					<div class="sidebar-row">
+						<h4>Color</h4>
+						<div class="row row1 scroll-pane">
+							<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>White</label>
+						</div>
+					</div>			 
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<br/>
+	</div>
+	<!--//products-->
+
+{% endif %}
+
+{% endblock %}

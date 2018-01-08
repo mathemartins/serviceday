@@ -1,13 +1,175 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %} Home | ServizeDey {% endblock %}
 
 {% block content %}
+<!--banner-->
+	<div class="banner">
+		<div class="container">
+			<div class="banner-text">			
+				<div class="col-sm-5 banner-left wow fadeInLeft animated" data-wow-delay=".5s">			
+					<h2>On Entire Box Of Skilled Artisans</h2>
+					<h3>We are here </h3>
+					<h4>Our New Collections</h4>
+					<div class="count main-row">
+						<ul id="example">
+							<li><span class="hours">00</span><p class="hours_text">Hours</p></li>
+							<li><span class="minutes">00</span><p class="minutes_text">Minutes</p></li>
+							<li><span class="seconds">00</span><p class="seconds_text">Seconds</p></li>
+						</ul>
+							<div class="clearfix"> </div>
+							<script type="text/javascript" src="{% static 'staticfiles/client/js/jquery.countdown.min.js' %}"></script>
+							<script type="text/javascript">
+								$('#example').countdown({
+									date: '12/24/2020 15:59:59',
+									offset: -8,
+									day: 'Day',
+									days: 'Days'
+								}, function () {
+									alert('Done!');
+								});
+							</script>
+					</div>
 
-<div>
-	<h1>Suggested Products</h1>
-</div>
+				</div>
+				<div class="col-sm-7 banner-right wow fadeInRight animated" data-wow-delay=".5s">			
+					<section class="slider grid">
+						<div class="flexslider">
+							<ul class="slides">
+								<!-- <li>
+									<h4>-30%</h4>
+									<img src="{% static 'staticfiles/client/images/b1.png' %}" alt="">
+								</li>
+								<li>
+									<h4>-25%</h4>
+									<img src="{% static 'staticfiles/client/images/b2.png' %}" alt="">
+								</li>
+								<li>
+									<h4>-32%</h4>
+									<img src="{% static 'staticfiles/client/images/b3.png' %}" alt="">
+								</li> -->
+							</ul>
+						</div>
+					</section>
+					<!--FlexSlider-->
+					<script defer src="{% static 'staticfiles/client/js/jquery.flexslider.js' %}"></script>
+					<script type="text/javascript">
+						$(window).load(function(){
+						  $('.flexslider').flexslider({
+							animation: "pagination",
+							start: function(slider){
+							  $('body').removeClass('loading');
+							}
+						  });
+						});
+					</script>
+					<!--End-slider-script-->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>			
+<!--//banner-->
 
-<div>
-	<h1>Tops Tags</h1>
-</div>
+	<!--new-->
+	<div class="new">
+		<div class="container">
+			<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
+				<h3 class="title">Suggested <span>Artisans</span></h3>
+				<p>choose from a wide range of our recently best featured suggested artisans</p>
+			</div>
+			<div class="new-info">
+				{% for instance in skill %}
+				<div class="col-md-3 new-grid simpleCart_shelfItem wow flipInY animated" data-wow-delay=".5s">
+					<div class="new-top">
+						<a href="{{ instance.get_absolute_url }}"><img src="{{ instance.image.url }}" class="img-responsive" alt=""/></a>
+						<div class="new-text">
+							<ul>
+								<li><a class="{{ instance.get_absolute_url }}" href=""> View Skill </a></li>
+								<li><a href="">See Artisan </a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="new-bottom">
+						<h5><a class="name" href="{{ instance.get_absolute_url }}"> {{ instance.title }} </a></h5>
+						<div class="rating">
+							<span class="on">☆</span>
+							<span class="on">☆</span>
+							<span class="on">☆</span>
+							<span class="on">☆</span>
+							<span>☆</span>
+						</div>	
+						<div class="ofr">
+							<p class="pric1"><del># {{ instance.price }}</del></p>
+							<p><span class="item_price"># {{ instance.sale_price }}</span></p>
+						</div>
+					</div>
+				</div>
+				{% empty %}
+					<h4 class="title text-center">No Suggested <span>Artisans Yet</span></h4>
+				{% endfor %}
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>		
+<!--//new-->
+<!--gallery-->
+	<div class="gallery">
+		<div class="container">
+			<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
+				<h3 class="title">Popular<span> Artisans</span></h3>
+				<p>Quick display of our most popular artisans widely selected and displayed</p>
+			</div>
+			<div class="gallery-info">
+				{% for instance in top_tags %}
+				<div class="col-md-3 gallery-grid wow flipInY animated" data-wow-delay=".5s">
+					<a href="{{ instance.get_absolute_url }}"><img src="{{ instance.image.url }}" class="img-responsive" alt=""/></a>
+					<div class="gallery-text simpleCart_shelfItem">
+						<h5><a class="name" href="{{ instance.get_absolute_url }}">{{ instance.title }} </a></h5>
+						<h4 class="sizes">active: <a href="#"> s</a> - <a href="#">m</a> - <a href="#">l</a> - <a href="#">xl</a> </h4>
+						<ul>
+							<li><a href="#"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></a></li>
+							<li><a class="item_add" href="#"><span class="glyphicon glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+							<li><a href="#"><span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"></span></a></li>
+						</ul>
+					</div>
+				</div>
+				{% empty %}
+					<h4 class="title text-center"> No Tags <span>Categories Yet</span></h4>
+				{% endfor %}
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+<!--//gallery-->
 
+
+<!-- <div class="container">
+	<div class="col-sm-6">
+		<h1>Suggested Skill</h1>
+		{% include "skill/skill_list_snippet.html" with skill_list=skill %}
+	</div>
+	<div class="col-sm-6">
+		<h1>Top Tags</h1>
+		{% for tag in top_tags %}
+			<li><a href="{{ tag.get_absolute_url }}">{{ tag }}</a></li>
+		{% endfor %}
+	</div>
+
+	{% if curated.count > 0 %}
+		{% for curated_section in curated %}
+
+
+			<div>
+				<h1>{{ curated_section.section_name }}</h1>
+
+					{% include "skill/skill_list_snippet.html" with skill_list=curated_section.skill.all %}
+
+			</div>
+
+		{% endfor %}
+
+	{% endif %}
+</div> -->
 {% endblock content %}

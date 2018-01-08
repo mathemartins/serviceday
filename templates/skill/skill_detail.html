@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load comments %}
+{% load comments_xtd %}
+{% load ratings %}
+
+<style>
+{% block style %}
+.rating {
+     width: 200px;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
+
+{% endblock style %}
+
+</style>
+
+
+
+<script>
+$(document).ready(function(){
+{% block jquery %}
+
+$(".rating input[value='{{ my_rating }}']").attr("checked", "checked");
+
+
+$(".rating input[type='radio']").click(function(event){
+	// event.preventDefault()
+	var inputValue = $(this).val()
+	console.log(inputValue)
+	var request = $.ajax({
+		method: "POST",
+		url: "{% url 'skill:ajax_rating' %}",
+		data: {
+			product_id: "{{ object.id }}",
+			rating_value: inputValue,
+			
+		}
+	})
+	request.done(function(data){
+
+	})
+
+	request.fail(function(jqXHR, textStatus){
+		if (jqXHR.status == 404) {
+			alert("Page not found!")
+		} else if (jqXHR.status == 401) {
+			alert("You must be logged in to do this.")
+		} else {
+			alert("There was an error with your request. Please try again.")
+		}
+	})
+
+
+})
+
+{% endblock jquery %}
+})
+</script>
+
+
+{% block title %} {{ object.title }} {% endblock %}
+
+{% block content %}
+
+<!--flex slider-->
+<script defer src="{% static 'staticfiles/client/js/jquery.flexslider.js' %}"></script>
+<link rel="stylesheet" href="{% static 'staticfiles/client/css/flexslider1.css' %}" type="text/css" media="screen" />
+<script>
+// Can also be used with $(document).ready()
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
+});
+</script>
+
+<!--flex slider-->
+<script src="{% static 'staticfiles/client/js/imagezoom.js' %}"></script>
+
+<!--single-page-->
+	<div class="single">
+		<div class="container">
+			<div class="single-info">		
+				<div class="col-md-6 single-top wow fadeInLeft animated" data-wow-delay=".5s">	
+					<div class="flexslider">
+						<ul class="slides">
+							<li data-thumb="{{ object.image.url }}">
+								<div class="thumb-image"> <img src="{{ object.image.url }}" data-imagezoom="true" class="img-responsive" alt=""> </div>
+							</li>
+							<li data-thumb="{{ object.image.url }}">
+								<div class="thumb-image"> <img src="{{ object.image.url }}" data-imagezoom="true" class="img-responsive" alt=""> </div>
+							</li>
+							<li data-thumb="{{ object.image.url }}">
+								<div class="thumb-image"> <img src="{{ object.image.url }}" data-imagezoom="true" class="img-responsive" alt=""> </div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 single-top-left simpleCart_shelfItem wow fadeInRight animated" data-wow-delay=".5s">
+					<h3>{{ object.title }} <small>by: <a href='{{ object.seller.get_absolute_url }}'>{{ object.artisan.user.username }}</a> </small></h3>
+
+					<div class="single-rating">
+						{% ratings object %}
+						<br/>
+						<p>
+							{{ rating_avg.rating__avg }} Average Rating by {{ rating_avg.rating__count }} Users.
+						</p>
+					</div>
+
+					<h6 class="item_price">NGN {{ object.get_html_price|safe }} </h6>			
+					<p>{{ object.description }}</p>
+					<div class="clearfix"> </div>
+					<div class="btn_form">
+						<a href=" {% if request.user.is_authenticated %} tel:{{ object.artisan.mobile_number }} {% else %} # {% endif %}" class="add-cart item_add"><i class="glyphicon glyphicon-earphone"></i>{% if request.user.is_authenticated %} Contact {{ object.title }} {% else %} You must be logged-in to contact this skll artisan {% endif %}</a>	
+					</div>
+				</div>
+			   <div class="clearfix"> </div>
+			</div>
+			<!--collapse-tabs-->
+			<div class="collpse tabs">
+				<div class="panel-group collpse" id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="panel panel-default wow fadeInUp animated" data-wow-delay=".5s">
+						<div class="panel-heading" role="tab" id="headingOne">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								  Description
+								</a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body">
+								{{ object.description }}
+							</div>
+						</div>
+					</div>
+					
+					<div class="panel panel-default wow fadeInUp animated" data-wow-delay=".8s">
+						<div class="panel-heading" role="tab" id="headingFour">
+							<h4 class="panel-title">
+								<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+									Report {{object.title}}
+								</a>
+							</h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+							<div class="panel-body">
+								0 persons has reported this {{ object.title }}
+								<hr/>
+
+								<strong class="text-center">OR</strong>
+								<hr/>
+
+								send us a mail@ <a href="mailto:servizedey@gmail.com"> 
+								servizedey@gmail.com </a>
+							</div>
+						</div>
+					</div>
+
+					<h3 class="page-header text-center">{{ object.title }}</h3>
+					<p class="small text-center">{{ object.publish|date:"l, j F Y" }}</p>
+					<p>
+					  {{ object.body|linebreaks }}
+					</p>
+
+					{% get_comment_count for object as comment_count %}
+					<div class="text-center" style="padding-top:20px">
+					  <a href="{% url 'skill:list' %}">Back to the skill list</a>
+					  &nbsp;&sdot;&nbsp;
+					  {{ comment_count }} comments have been posted.
+					</div>
+
+					<div class="comment">
+					  <h4 class="text-center">Your comment</h4>
+					  <div class="well">
+					    {% render_comment_form for object %}
+					  </div>
+					</div>
+
+					<hr/>
+					<ul class="media-list">
+					  {% render_xtdcomment_tree for object %}
+					</ul>
+				</div>
+			</div>
+			<!--//collapse -->
+		</div>
+	</div>
+	<!--//single-page-->
+	<br/>
+
+<div class='clearfix'></div>
+
+
+{% endblock content %}

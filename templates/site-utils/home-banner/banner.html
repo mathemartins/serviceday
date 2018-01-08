@@ -1,41 +1,68 @@
 {% load staticfiles %}
 
-<div class="banner">
-   <div class="container_wrap">
-      <h1>What are you looking for?</h1>
-   	<div class="dropdown-buttons">   
-         <div class="dropdown-button">           			
-			<select>
-				<option selected="" tabindex="9" style="display:none;color:#eee;">Dubai</option>
-				<option>Australia</option>
-				<option>Sri Lanka</option>
-				<option>Newzeland</option>
-				<option>Pakistan</option>
-				<option>United Kingdom</option>
-				<option>United states</option>
-				<option>Russia</option>
-				<option>Mirum</option>
-			</select>
+	<div class="banner">
+		<div class="container">
+			<div class="banner-text">			
+				<div class="col-sm-5 banner-left wow fadeInLeft animated" data-wow-delay=".5s">			
+					<h2>On Entire Fashion range</h2>
+					<h3>Coming Soon </h3>
+					<h4>Our New Designs</h4>
+					<div class="count main-row">
+						<ul id="example">
+							<li><span class="hours">00</span><p class="hours_text">Hours</p></li>
+							<li><span class="minutes">00</span><p class="minutes_text">Minutes</p></li>
+							<li><span class="seconds">00</span><p class="seconds_text">Seconds</p></li>
+						</ul>
+							<div class="clearfix"> </div>
+							<script type="text/javascript" src="js/jquery.countdown.min.js"></script>
+							<script type="text/javascript">
+								$('#example').countdown({
+									date: '12/24/2020 15:59:59',
+									offset: -8,
+									day: 'Day',
+									days: 'Days'
+								}, function () {
+									alert('Done!');
+								});
+							</script>
+					</div>
+
+				</div>
+				<div class="col-sm-7 banner-right wow fadeInRight animated" data-wow-delay=".5s">			
+					<section class="slider grid">
+						<div class="flexslider">
+							<ul class="slides">
+								<!-- <li>
+									<h4>-30%</h4>
+									<img src="images/b1.png" alt="">
+								</li>
+								<li>
+									<h4>-25%</h4>
+									<img src="images/b2.png" alt="">
+								</li>
+								<li>
+									<h4>-32%</h4>
+									<img src="images/b3.png" alt="">
+								</li> -->
+							</ul>
+						</div>
+					</section>
+					<!--FlexSlider-->
+					<script defer src="js/jquery.flexslider.js"></script>
+					<script type="text/javascript">
+						$(window).load(function(){
+						  $('.flexslider').flexslider({
+							animation: "pagination",
+							start: function(slider){
+							  $('body').removeClass('loading');
+							}
+						  });
+						});
+					</script>
+					<!--End-slider-script-->
+				</div>
+				<div class="clearfix"> </div>
 			</div>
-			<div class="dropdown-button">
-            <select>
-					<option selected="" tabindex="9" style="display:none;color:#eee;">Education</option>
-					<option>tempor</option>
-					<option>congue</option>
-					<option>mazim</option>
-					<option>mutationem</option>
-					<option>hendrerit</option>
-					<option>mutationem</option>
-					<option>hendrerit</option>
-			   </select>
-			</div>
-		</div>  
-		<form>
-         <input type="text" value="Keyword, name, date, ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Keyword, name, date, ...';}">
-			<div class="contact_btn">
-            <label class="btn1 btn-2 btn-2g"><input name="submit" type="submit" id="submit" value="Search"></label>
-         </div>
-		</form>        		
-   	<div class="clearfix"></div>
-   </div>
-</div>
+		</div>
+	</div>			
+	<!--//banner-->
