@@ -21,7 +21,7 @@ class ArtisanAccount(models.Model):
 	managers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="manager_artisans", blank=True)
 	banner_image = ProcessedImageField(upload_to=upload_dir, processors=[ResizeToFill(500, 200)], format='JPEG', options={'quality':100}, null=True, blank=True)
 	image = ProcessedImageField(upload_to=upload_dir, processors=[ResizeToFill(250, 150)], format='JPEG', options={'quality':100}, null=True, blank=True)
-	address = models.CharField(max_length=300)
+	address = models.CharField(max_length=200)
 	mobile_number = models.CharField(max_length=11)
 	active = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
