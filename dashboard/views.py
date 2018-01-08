@@ -6,7 +6,6 @@ from django.shortcuts import render
 # Create your views here.
 
 from skill.models import Skill, CuratedSkills
-from core.models import BannerContentControl
 
 class DashboardView(View):
 	def get(self, request, *args, **kwargs):
@@ -14,7 +13,6 @@ class DashboardView(View):
 		skill = None
 		top_tags = None
 		curated = CuratedSkills.objects.filter(active=True).order_by("?")
-		text = BannerContentControl.objects.all
 		try:
 			tag_views = request.user.tagview_set.all().order_by("-count")[:5]
 		except:
@@ -46,7 +44,6 @@ class DashboardView(View):
 			"skill": skill,
 			"top_tags": top_tags,
 			"curated": curated,
-			"text":text
 		}
 		return render(request, "dashboard/view.html", context)
 
